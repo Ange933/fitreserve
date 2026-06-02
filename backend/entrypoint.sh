@@ -18,4 +18,10 @@ if [ ! -f /var/www/html/config/jwt/private.pem ]; then
         -out /var/www/html/config/jwt/public.pem -pubout
 fi
 
+echo "[FitReserve] Migrations..."
+php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
+
+echo "[FitReserve] Cache..."
+php bin/console cache:warmup --env=prod 2>/dev/null || true
+
 exec "$@"
