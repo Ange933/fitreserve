@@ -24,7 +24,7 @@ COPY composer.json composer.lock* ./
 RUN composer install --no-scripts --no-autoloader --prefer-dist
 
 COPY . .
-RUN composer dump-autoload --optimize
+RUN composer dump-autoload --optimize --no-scripts
 
 RUN mkdir -p config/jwt \
     && if [ ! -f config/jwt/private.pem ]; then \

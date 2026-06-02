@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+# Symfony a besoin du fichier .env pour booter même si les vars sont dans l'env
+touch /var/www/html/.env
+
 if [ ! -f /var/www/html/vendor/autoload_runtime.php ]; then
     echo "[FitReserve] Installation des dépendances Composer..."
     composer install --no-interaction --optimize-autoloader
