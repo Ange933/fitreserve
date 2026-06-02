@@ -1,0 +1,45 @@
+# Environment files
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# JWT keys
+backend/config/jwt/
+*.pem
+
+# Vendor
+backend/vendor/
+frontend/node_modules/
+
+# Build
+frontend/dist/
+
+# Logs
+*.log
+backend/var/log/
+
+# Cache
+backend/var/cache/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# PHPUnit
+backend/.phpunit.result.cache
+backend/phpunit.xml
+
+# Docker volumes
+.docker/
+
+# Dossiers privés
+CLAUDE.md
+DOSSIER_BLOC2.md
