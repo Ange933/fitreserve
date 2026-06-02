@@ -143,27 +143,19 @@ jobs:
         run: docker build -t fitreserve-frontend ./frontend
 
   # ─────────────────────────────────────────────
-  #  Déploiement continu — production (main only)
+  #  Déploiement continu — Railway (main only)
   # ─────────────────────────────────────────────
   deploy:
-    name: Deploy to production
+    name: Deploy to Railway
     runs-on: ubuntu-latest
     needs: [docker]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && secrets.DEPLOY_HOST != ''
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Trigger Railway deploy (backend)
+        if: ${{ secrets.RAILWAY_DEPLOY_HOOK_BACKEND != '' }}
+        run: curl -X POST "${{ secrets.RAILWAY_DEPLOY_HOOK_BACKEND }}"
 
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
-          script: |
-            cd /opt/fitreserve
-            git pull origin main
-            docker compose pull
-            docker compose up -d --build
-            docker compose exec -T backend php bin/console doctrine:migrations:migrate --no-interaction
-            docker compose exec -T backend php bin/console cache:clear
+      - name: Trigger Railway deploy (frontend)
+        if: ${{ secrets.RAILWAY_DEPLOY_HOOK_FRONTEND != '' }}
+        run: curl -X POST "${{ secrets.RAILWAY_DEPLOY_HOOK_FRONTEND }}"
