@@ -65,7 +65,7 @@ jobs:
 
       - name: Run migrations
         env:
-          DATABASE_URL: "mysql://fituser:fitpassword@127.0.0.1:3306/fitreserve_test?serverVersion=8.0.36"
+          DATABASE_URL: "mysql://fituser:fitpassword@127.0.0.1:3306/fitreserve?serverVersion=8.0.36"
           APP_ENV: test
           APP_SECRET: test_secret_32_chars_minimum_ok
           JWT_SECRET_KEY: "%kernel.project_dir%/config/jwt/private.pem"
@@ -75,7 +75,7 @@ jobs:
 
       - name: Load fixtures
         env:
-          DATABASE_URL: "mysql://fituser:fitpassword@127.0.0.1:3306/fitreserve_test?serverVersion=8.0.36"
+          DATABASE_URL: "mysql://fituser:fitpassword@127.0.0.1:3306/fitreserve?serverVersion=8.0.36"
           APP_ENV: test
           APP_SECRET: test_secret_32_chars_minimum_ok
           JWT_SECRET_KEY: "%kernel.project_dir%/config/jwt/private.pem"
@@ -85,7 +85,7 @@ jobs:
 
       - name: Run PHPUnit tests
         env:
-          DATABASE_URL: "mysql://fituser:fitpassword@127.0.0.1:3306/fitreserve_test?serverVersion=8.0.36"
+          DATABASE_URL: "mysql://fituser:fitpassword@127.0.0.1:3306/fitreserve?serverVersion=8.0.36"
           APP_ENV: test
           APP_SECRET: test_secret_32_chars_minimum_ok
           JWT_SECRET_KEY: "%kernel.project_dir%/config/jwt/private.pem"
