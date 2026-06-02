@@ -153,9 +153,13 @@ jobs:
 
     steps:
       - name: Trigger Railway deploy (backend)
-        if: ${{ secrets.RAILWAY_DEPLOY_HOOK_BACKEND != '' }}
-        run: curl -X POST "${{ secrets.RAILWAY_DEPLOY_HOOK_BACKEND }}"
+        run: |
+          if [ -n "$HOOK" ]; then curl -X POST "$HOOK"; else echo "No backend hook configured, skipping."; fi
+        env:
+          HOOK: ${{ secrets.RAILWAY_DEPLOY_HOOK_BACKEND }}
 
       - name: Trigger Railway deploy (frontend)
-        if: ${{ secrets.RAILWAY_DEPLOY_HOOK_FRONTEND != '' }}
-        run: curl -X POST "${{ secrets.RAILWAY_DEPLOY_HOOK_FRONTEND }}"
+        run: |
+          if [ -n "$HOOK" ]; then curl -X POST "$HOOK"; else echo "No frontend hook configured, skipping."; fi
+        env:
+          HOOK: ${{ secrets.RAILWAY_DEPLOY_HOOK_FRONTEND }}
